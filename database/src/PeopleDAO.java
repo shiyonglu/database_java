@@ -123,13 +123,6 @@ public class PeopleDAO extends HttpServlet {
 //        disconnect();
         return rowUpdated;     
     }
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 	
     public People getPeople(int id) throws SQLException {
     	People people = null;
