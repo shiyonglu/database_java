@@ -23,7 +23,7 @@ import java.util.List;
  * Servlet implementation class Connect
  */
 @WebServlet("/PeopleDAO")
-public class PeopleDAO extends HttpServlet {     
+public class PeopleDAO {     
 	private static final long serialVersionUID = 1L;
 	private Connection connect = null;
 	private Statement statement = null;
