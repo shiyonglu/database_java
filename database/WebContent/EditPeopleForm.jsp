@@ -16,26 +16,12 @@
         </h2>
     </center>
     <div align="center">
-        <c:if test="${people != null}">
             <form action="update" method="post">
-        </c:if>
-        <c:if test="${people == null}">
-            <form action="insert" method="post">
-        </c:if>
         <table border="1" cellpadding="5">
             <caption>
-                <h2>
-                    <c:if test="${people != null}">
-                        Edit People
-                    </c:if>
-                    <c:if test="${people == null}">
-                        Add New People
-                    </c:if>
-                </h2>
+                <h2>Edit an Existing People</h2>
             </caption>
-                <c:if test="${people != null}">
                     <input type="hidden" name="id" value="<c:out value='${people.id}' />" />
-                </c:if>           
             <tr>
                 <th>Name: </th>
                 <td>

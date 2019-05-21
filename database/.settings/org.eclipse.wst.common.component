@@ -2,6 +2,8 @@
     <wb-module deploy-name="database">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/classes"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
         <property name="java-output-path" value="/database/build/classes"/>
         <property name="context-root" value="database"/>
     </wb-module>
