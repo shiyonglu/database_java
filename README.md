@@ -1,4 +1,4 @@
-# database
+# Database Exercises
 Please watch the tutorial for each exercise and then put your TWO HANDS on the keyboard to exercise.  
 
 1. Tutorial 1: <a href="https://www.youtube.com/watch?v=fEQkJAJv3Ds&t=134s">Exercise 1</a>
