@@ -1,7 +1,5 @@
 # database
-All files necessary for the database classes that I am teaching.
-
-
+Please watch the tutorial for each exercise and then put your TWO HANDS on the keyboard to exercise.  
 
 1. Tutorial 1: <a href="https://www.youtube.com/watch?v=fEQkJAJv3Ds&t=134s">Exercise 1</a>
 2. Tutorial 2: <a href="https://www.youtube.com/watch?v=QeH56XCM3eY&t342s">Exercise 2</a>
