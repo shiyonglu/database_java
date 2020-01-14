@@ -12,19 +12,19 @@ Then: restart the command line to activate the new settings.
 
 5: Compile the test1.java by using the command
 
- javac -cp .:mysql-connector-java-5.1.32-bin.jar test1.java î on Mac,
+ javac -cp .:mysql-connector-java-5.1.32-bin.jar test1.java ‚Äù on Mac,
 
 or
 
- javac -cp .;mysql-connector-java-5.1.32-bin.jar test1.java î on Windows 10.
+ javac -cp .;mysql-connector-java-5.1.32-bin.jar test1.java ‚Äù on Windows 10.
 
 6: Run the java program by using the command
 
- java -cp .:mysql-connector-java-5.1.32-bin.jar test1 î on Mac,
+ java -cp .:mysql-connector-java-5.1.32-bin.jar test1 ‚Äù on Mac,
 
 or
 
-java -cp .;mysql-connector-java-5.1.32-bin.jar test1 î on Windows 10.
+java -cp .;mysql-connector-java-5.1.32-bin.jar test1 ‚Äù on Windows 10.
 
 
 
@@ -69,7 +69,7 @@ public class test1 {
       // Setup the connection with the DB
       connect = DriverManager
           .getConnection("jdbc:mysql://141.217.48.128:3306/dataview?"
-              + "user=shiyong&password=view1234");
+              + "user=csc4710&password=view1234");
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
