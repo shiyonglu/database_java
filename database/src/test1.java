@@ -10,21 +10,21 @@ Then: restart the command line to activate the new settings.
 4: Download the two files from the link at the bottom: test1.java and the mysql-connector-java-5.1.32-bin.jar
 
 
-5: Compile the test1.java by using the command
+5: Compile the test1.java by using the command on Mac
 
- javac -cp .:mysql-connector-java-5.1.32-bin.jar test1.java ” on Mac,
+ javac -cp .:mysql-connector-java-5.1.32-bin.jar test1.java
 
-or
+or on Windows
 
- javac -cp .;mysql-connector-java-5.1.32-bin.jar test1.java ” on Windows 10.
+ javac -cp .;mysql-connector-java-5.1.32-bin.jar test1.java
 
-6: Run the java program by using the command
+6: Run the java program by using the command on Mac
 
- java -cp .:mysql-connector-java-5.1.32-bin.jar test1 ” on Mac,
+ java -cp .:mysql-connector-java-5.1.32-bin.jar test1
 
-or
+or on Windows
 
-java -cp .;mysql-connector-java-5.1.32-bin.jar test1 ” on Windows 10.
+java -cp .;mysql-connector-java-5.1.32-bin.jar test1
 
 
 
