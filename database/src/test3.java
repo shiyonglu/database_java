@@ -161,7 +161,7 @@ public class test3  {
       // Setup the connection with the DB
       connect = DriverManager
           .getConnection("jdbc:mysql://localhost:3306/testdb?"
-              + "user=john&password=john1234");
+              + "useSSL=false&user=john&password=john1234");
 
         
 
