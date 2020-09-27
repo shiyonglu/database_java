@@ -69,7 +69,7 @@ public class test1 {
       // Setup the connection with the DB
       connect = DriverManager
           .getConnection("jdbc:mysql://141.217.48.128:3306/dataview?"
-              + "user=csc4710&password=view1234");
+              + "useSSL=false&user=csc4710&password=view1234");
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
