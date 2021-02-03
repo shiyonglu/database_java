@@ -1,50 +1,8 @@
 /*
- 
-1: Download Java JDK at http://www.oracle.com/technetwork/java/javase/downloads/index.html
-
-2: Make sure you have the global java running enviornment by typing java under any folder in the terminal
-
-3: Configure your Windows 10 environmen by checking the web: https://www.mkyong.com/java/how-to-set-java_home-on-windows-10/
-Then: restart the command line to activate the new settings.
-
-4: Download the two files from the link at the bottom: test1.java and the mysql-connector-java-5.1.32-bin.jar
-
-
-5: Compile the test1.java by using the command on Mac
-
- javac -cp .:mysql-connector-java-5.1.32-bin.jar test1.java
-
-or on Windows
-
- javac -cp .;mysql-connector-java-5.1.32-bin.jar test1.java
-
-6: Run the java program by using the command on Mac
-
- java -cp .:mysql-connector-java-5.1.32-bin.jar test1
-
-or on Windows
-
-java -cp .;mysql-connector-java-5.1.32-bin.jar test1
-
-
-
-To successfully run the commands above, you need to connect with the school network (WSU WIFI), or to use a machine on campus that connects to the same network (in any classroom that has computers)!
-
- 
-
-
-Submission:
-
-A screen shot of the program result will be sent to TA and Dr.Lu.
-
- 
-
-Please prepare for the video for the exercise 1 by referring the previous one.
-
-Attached please find the two videos link for working on Exercise 1 (https://youtu.be/sjXQe8_9XR8) and Exercise 2 (https://youtu.be/lN7e9xDSvSQ).
-
-
- *
+ The purpose of Exercise 1 is to show how to use a SELECT statement in Java to display the content of a table located at a remote database server. 
+    1) Understand how to connnect to a Database server and close the connection;
+    2) Understand how to run a SELECT statement in Java;
+    3) Understand how the method writeResultSet works to display the result from a SELECT statement. 
  * */
 
 import java.sql.Connection;
