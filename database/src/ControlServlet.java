@@ -42,22 +42,28 @@ public class ControlServlet extends HttpServlet {
         try {
             switch (action) {
             case "/new":
+                System.out.println("The action is: new");
                 showNewForm(request, response);
                 break;
             case "/insert":
-            	insertPeople(request, response);
+                System.out.println("The action is: insert");
+            	   insertPeople(request, response);
                 break;
             case "/delete":
-            	deletePeople(request, response);
+                System.out.println("The action is: delete");
+            	   deletePeople(request, response);
                 break;
             case "/edit":
+                System.out.println("The action is: edit");
                 showEditForm(request, response);
                 break;
             case "/update":
-            	updatePeople(request, response);
+                System.out.println("The action is: update");
+            	   updatePeople(request, response);
                 break;
-            default:          	
-            	listPeople(request, response);           	
+            default:
+                System.out.println("Not sure which action");
+                listPeople(request, response);           	
                 break;
             }
         } catch (SQLException ex) {
@@ -76,8 +82,10 @@ public class ControlServlet extends HttpServlet {
     // to insert a people
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("Will show the InsertPeopleForm page soon.");
         RequestDispatcher dispatcher = request.getRequestDispatcher("InsertPeopleForm.jsp");
         dispatcher.forward(request, response);
+        System.out.println("The user sees the InsertPeopleForm page by now.");
     }
  
     // to present an update form to update an  existing Student
@@ -95,36 +103,47 @@ public class ControlServlet extends HttpServlet {
     // 
     private void insertPeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
+        System.out.println("insertPeople started: 000000000000000000000000000");
+     
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String status = request.getParameter("status");
+        System.out.println("name:" + name + ", address: "+address + ", status:" + status);
+     
         People newPeople = new People(name, address, status);
         peopleDAO.insert(newPeople);
-        response.sendRedirect("list");  // The sendRedirect() method works at client side and sends a new request
+     
+        System.out.println("Ask the browser to call the list action next automatically");
+        response.sendRedirect("list");  //
+        System.out.println("insertPeople finished: 11111111111111111111111111");   
     }
  
     private void updatePeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
+        System.out.println("updatePeople started: 000000000000000000000000000");
         int id = Integer.parseInt(request.getParameter("id"));
-        
-        System.out.println(id);
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String status = request.getParameter("status");
-        
-        System.out.println(name);
+        System.out.println("name:" + name + ", address: "+address + ", status:" + status);
         
         People people = new People(id,name, address, status);
         peopleDAO.update(people);
+        System.out.println("Ask the browser to call the list action next automatically");
         response.sendRedirect("list");
+        System.out.println("updatePeople finished: 1111111111111111111111111111111");
     }
  
     private void deletePeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
+        System.out.println("deletePeople started: 000000000000000000000000000");
+     
         int id = Integer.parseInt(request.getParameter("id"));
         //People people = new People(id);
         peopleDAO.delete(id);
+        System.out.println("Ask the browser to call the list action next automatically");
         response.sendRedirect("list"); 
+        System.out.println("deletePeople finished: 1111111111111111111111111111111");
     }
 
 }
