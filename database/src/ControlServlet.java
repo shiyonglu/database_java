@@ -32,11 +32,15 @@ public class ControlServlet extends HttpServlet {
  
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("doPost started: 000000000000000000000000000");
         doGet(request, response);
+        System.out.println("doPost finished: 11111111111111111111111111");
     }
  
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("doGet started: 000000000000000000000000000"); 
+     
         String action = request.getServletPath();
         System.out.println(action);
         try {
@@ -69,34 +73,47 @@ public class ControlServlet extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
+        System.out.println("doGet finished: 111111111111111111111111111111111111");
     }
     
     private void listPeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
+        System.out.println("listPeople started: 00000000000000000000000000000000000");
+
+     
         List<People> listPeople = peopleDAO.listAllPeople();
         request.setAttribute("listPeople", listPeople);       
         RequestDispatcher dispatcher = request.getRequestDispatcher("PeopleList.jsp");       
         dispatcher.forward(request, response);
+     
+        System.out.println("listPeople finished: 111111111111111111111111111111111111");
     }
  
     // to insert a people
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Will show the InsertPeopleForm page soon.");
+        System.out.println("showNewForm started: 000000000000000000000000000");
+     
         RequestDispatcher dispatcher = request.getRequestDispatcher("InsertPeopleForm.jsp");
         dispatcher.forward(request, response);
-        System.out.println("The user sees the InsertPeopleForm page by now.");
+        System.out.println("The user sees the InsertPeopleForm page now.");
+     
+        System.out.println("showNewForm finished: 1111111111111111111111111111111");
     }
  
     // to present an update form to update an  existing Student
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
+        System.out.println("showEditForm started: 000000000000000000000000000");
+     
         int id = Integer.parseInt(request.getParameter("id"));
         People existingPeople = peopleDAO.getPeople(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("EditPeopleForm.jsp");
         request.setAttribute("people", existingPeople);
         dispatcher.forward(request, response); // The forward() method works at server side, and It sends the same request and response objects to another servlet.
- 
+        System.out.println("Now you see the EditPeopleForm page in your browser.");
+     
+        System.out.println("showEditForm finished: 1111111111111111111111111111");
     }
  
     // after the data of a people are inserted, this method will be called to insert the new people into the DB
@@ -115,12 +132,14 @@ public class ControlServlet extends HttpServlet {
      
         System.out.println("Ask the browser to call the list action next automatically");
         response.sendRedirect("list");  //
+     
         System.out.println("insertPeople finished: 11111111111111111111111111");   
     }
  
     private void updatePeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         System.out.println("updatePeople started: 000000000000000000000000000");
+     
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String address = request.getParameter("address");
@@ -131,6 +150,7 @@ public class ControlServlet extends HttpServlet {
         peopleDAO.update(people);
         System.out.println("Ask the browser to call the list action next automatically");
         response.sendRedirect("list");
+     
         System.out.println("updatePeople finished: 1111111111111111111111111111111");
     }
  
@@ -143,6 +163,7 @@ public class ControlServlet extends HttpServlet {
         peopleDAO.delete(id);
         System.out.println("Ask the browser to call the list action next automatically");
         response.sendRedirect("list"); 
+     
         System.out.println("deletePeople finished: 1111111111111111111111111111111");
     }
 
