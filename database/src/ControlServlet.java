@@ -45,6 +45,10 @@ public class ControlServlet extends HttpServlet {
         System.out.println(action);
         try {
             switch (action) {
+            case "/list": 
+                System.out.println("The action is: list");
+                listPeople(request, response);           	
+                break;
             case "/new":
                 System.out.println("The action is: new");
                 showNewForm(request, response);
@@ -66,7 +70,7 @@ public class ControlServlet extends HttpServlet {
             	   updatePeople(request, response);
                 break;
             default:
-                System.out.println("Not sure which action");
+                System.out.println("Not sure which action, we will treat it as the list action");
                 listPeople(request, response);           	
                 break;
             }
