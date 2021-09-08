@@ -36,7 +36,7 @@ public class test2  {
       statement = connect.createStatement();
       // Result set get the result of the SQL query
       resultSet = statement
-          .executeQuery("select * from member");
+          .executeQuery("select * from student");
 
       writeResultSet(resultSet);
 
@@ -45,16 +45,17 @@ public class test2  {
 
 /*  test 2 */
       preparedStatement = connect
-          .prepareStatement("insert into  member values (?, ?, ?)");
-      preparedStatement.setString(1, "Newton John");
-      preparedStatement.setString(2, "newton@gmail.com	");
-      preparedStatement.setString(3, "U.S.A.");
+          .prepareStatement("insert into  student values (?, ?, ?, ?)");
+      preparedStatement.setInt(1, 0); 
+      preparedStatement.setString(2, "Thomas Jefferson");
+      preparedStatement.setString(3, "134 Freedom ln, Rochest Hills, MI 49083");
+      preparedStatement.setString(4, "Senior");
 
 
       preparedStatement.executeUpdate();
       
       resultSet = statement
-          .executeQuery("select * from member");
+          .executeQuery("select * from student");
 
       writeResultSet(resultSet);
       
@@ -87,11 +88,11 @@ public class test2  {
       // which starts at 1
       // e.g. resultSet.getSTring(2);
       String name = resultSet.getString("name");
-      String email = resultSet.getString("email");
-      String country = resultSet.getString("country");
+      String address = resultSet.getString("address");
+      String status = resultSet.getString("status");
       System.out.println("name: " + name);
-      System.out.println("email: " + email);
-      System.out.println("country: " + country);
+      System.out.println("address: " + address);
+      System.out.println("status: " + status);
       System.out.println("");
     }
   }
