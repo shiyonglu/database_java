@@ -30,7 +30,7 @@ public class test2  {
       // Setup the connection with the DB
       connect = DriverManager
           .getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
-              + "useSSL=false&user=john&password=john1234");
+              + "useSSL=false&user=john&password=test1234");
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
