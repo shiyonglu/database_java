@@ -31,6 +31,11 @@ public class test2  {
       connect = DriverManager
           .getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
               + "useSSL=false&user=john&password=pass1234");
+     /*
+      *  if timezone issue, try: 
+      *  connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
+      *            + "useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&user=john&password=test1234");
+      */
 
       // Statements allow to issue SQL queries to the database
       statement = connect.createStatement();
