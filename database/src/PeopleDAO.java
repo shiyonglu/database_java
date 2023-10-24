@@ -39,25 +39,37 @@ public class PeopleDAO {
      * @see HttpServlet#HttpServlet()
      */
     protected void connect_func() throws SQLException {
+	System.out.println("\n \n PeopldDao.connect_func() is called."); 
+	    
         if (connect == null || connect.isClosed()) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
+		System.out.println("111111111111111111111");     
             } catch (ClassNotFoundException e) {
+		System.out.println("222222222222222222222");     
                 throw new SQLException(e);
             }
             connect = (Connection) DriverManager
   			      .getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
   			          + "useSSL=false&user=john&password=john1234");
+	    System.out.println("333333333333333333"); 	
             System.out.println(connect);
         }
+
+	System.out.println("PeopldDao.connect_func() is completed successfully."); 	
     }
     
     public List<People> listAllPeople() throws SQLException {
+	System.out.println("\n \n PeopleDao.listAllPeople() is called.");
+
+	System.out.println("1111111111111111111111111111111111");    
         List<People> listPeople = new ArrayList<People>();        
         String sql = "SELECT * FROM student";      
         connect_func();      
+	System.out.println("22222222222222222222222222222");    
         statement =  (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
+	System.out.println("333333333333333333333333");    
          
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
@@ -69,8 +81,12 @@ public class PeopleDAO {
             listPeople.add(people);
         }        
         resultSet.close();
+	System.out.println("444444444444444444444444444");    
         statement.close();         
         disconnect();        
+	
+	System.out.println("PeopleDao.listAllPeople() is completed.");
+	    
         return listPeople;
     }
     
