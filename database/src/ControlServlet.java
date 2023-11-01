@@ -1,3 +1,14 @@
+/*
+ *
+ *  1. Session and request/response are different. The former will keep its values from page to page, the later only remains for the particular request/response.
+ *      For example, ``request.setAttribute("people", existingPeople);`` will only change the attribute in the request.
+ *  2. 
+ *
+ *
+ *
+ */
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
