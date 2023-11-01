@@ -54,6 +54,8 @@ public class ControlServlet extends HttpServlet {
      
         String action = request.getServletPath();
         System.out.println(action);
+             
+        // when the user clicks a link or a submit button at a browser page, one of the following actions will be triggered: 
         try {
             switch (action) {
             case "/list": 
@@ -95,9 +97,15 @@ public class ControlServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         System.out.println("listPeople started: 00000000000000000000000000000000000");
 
-     
+
+        // select from the database
         List<People> listPeople = peopleDAO.listAllPeople();
-        request.setAttribute("listPeople", listPeople);       
+
+        // change the request parameter ``listPeople``
+        request.setAttribute("listPeople", listPeople);
+
+        // forward the request to PeopleList.jsp for further processing, where the ``listPeople`` will be retrieved and displayed by PeopleList.jsp
+        // the user will see the rendering result (IN HTML) for the file PeopleList.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("PeopleList.jsp");       
         dispatcher.forward(request, response);
      
@@ -108,7 +116,8 @@ public class ControlServlet extends HttpServlet {
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("showNewForm started: 000000000000000000000000000");
-     
+
+        // forward the request to InsertPeopleForm.jsp, the client will see the HTML rendering result of InsertPeopleForm.jsp in its browser
         RequestDispatcher dispatcher = request.getRequestDispatcher("InsertPeopleForm.jsp");
         dispatcher.forward(request, response);
         System.out.println("The user sees the InsertPeopleForm page now.");
@@ -120,11 +129,19 @@ public class ControlServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         System.out.println("showEditForm started: 000000000000000000000000000");
-     
+
+        // get the Id of the people from the "id" paramter of the request
         int id = Integer.parseInt(request.getParameter("id"));
+
+        // use the Id of hte people to select all info of the people
         People existingPeople = peopleDAO.getPeople(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("EditPeopleForm.jsp");
+
+        // insert a new parameter ``people`` into the request
         request.setAttribute("people", existingPeople);
+
+        // forward the request to ``EditPeopleForm.jsp`` to process, 
+        // EditPeopleFrom.jsp will display existing info for the people in a form for the user to change
+        RequestDispatcher dispatcher = request.getRequestDispatcher("EditPeopleForm.jsp");
         dispatcher.forward(request, response); // The forward() method works at server side, and It sends the same request and response objects to another servlet.
         System.out.println("Now you see the EditPeopleForm page in your browser.");
      
@@ -136,16 +153,19 @@ public class ControlServlet extends HttpServlet {
     private void insertPeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         System.out.println("insertPeople started: 000000000000000000000000000");
-     
+
+        // retrieve all the information of the new people form the request
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String status = request.getParameter("status");
         System.out.println("name:" + name + ", address: "+address + ", status:" + status);
-     
+
+        // insert the infomation of the new people into the database
         People newPeople = new People(name, address, status);
         peopleDAO.insert(newPeople);
      
         System.out.println("Ask the browser to call the list action next automatically");
+        // instead rediret to another jsp, we redirect to another action, simulating that the user click a list link or button, benefit: save one click from the user.
         response.sendRedirect("list");  //
      
         System.out.println("insertPeople finished: 11111111111111111111111111");   
@@ -172,13 +192,18 @@ public class ControlServlet extends HttpServlet {
     private void deletePeople(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         System.out.println("deletePeople started: 000000000000000000000000000");
-     
+
+        // get the id of the people we want to delete from the parameter
         int id = Integer.parseInt(request.getParameter("id"));
         //People people = new People(id);
+
+        // delete this people
         peopleDAO.delete(id);
         System.out.println("Ask the browser to call the list action next automatically");
+
+        // instead rediret to another jsp, we redirect to another action, simulating that the user click a list link or button, benefit: save one click from the user    
         response.sendRedirect("list"); 
-     
+        
         System.out.println("deletePeople finished: 1111111111111111111111111111111");
     }
 
