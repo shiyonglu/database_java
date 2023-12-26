@@ -17,109 +17,101 @@ import java.sql.Statement;
 import java.util.Date;
 
 public class test2  {
-  private static Connection connect = null;
+  private static Connection connection = null;
   private static Statement statement = null;
   private static PreparedStatement preparedStatement = null;
   private static ResultSet resultSet = null;
 
+ public static void connect() throws SQLException
+ {
+          connection = DriverManager
+          .getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
+              + "useSSL=false&user=root&password=test1234"); 
+ }
+
+ public static void close() throws SQLException
+ {
+         connection.close();
+ }
+
+ public static void insertStudent(int id, String name, String address, String status) throws SQLException
+ {
+     String stmt = "INSERT INTO Student VALUES(?, ? , ?, ?)";
+     preparedStatement = connection.prepareStatement(stmt);
+     preparedStatement.setInt(1, id);
+     preparedStatement.setString(2, name);
+     preparedStatement.setString(3, address);
+     preparedStatement.setString(4, status);     
+     preparedStatement.executeUpdate();
+ }
+
+
+ public static void updateAddressById(int id, String newName) throws SQLException
+ { 
+     String stmt = "UPDATE Student SET name = ? WHERE id = ?";
+     preparedStatement = connection.prepareStatement(stmt);
+     preparedStatement.setString(1, newName);
+     preparedStatement.setInt(2, id);
+     preparedStatement.executeUpdate();
+ }
+
+ public static void deleteStudentByName(String name) throws SQLException
+ {
+     String stmt = "DELETE FROM Student WHERE name = ?";
+     preparedStatement = connection.prepareStatement(stmt);
+     preparedStatement.setString(1, name);
+     preparedStatement.executeUpdate();
+ }
+
+ 
+ public static ResultSet selectStudentByName(String name) throws SQLException
+ {
+     String stmt = "SELECT * FROM Student WHERE name = ?";
+     preparedStatement = connection.prepareStatement(stmt);
+     preparedStatement.setString(1, name);
+     ResultSet r = preparedStatement.executeQuery();
+     return r;
+ }
+
+ public static ResultSet selectAllStudents() throws SQLException
+ {
+     statement = connection.createStatement();
+     ResultSet resultSet = statement.executeQuery("select * from student");
+     return resultSet;
+ }
+
  public static void main(String[] args) {
     try {
-      System.out.println("Select a table and then print out its content.");
-      // This will load the MySQL driver, each DB has its own driver
-      // Class.forName("com.mysql.jdbc.Driver");
-      // Setup the connection with the DB
-      connect = DriverManager
-          .getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
-              + "useSSL=false&user=root&password=test1234");
-     /*
-      *  if timezone issue, try: 
-      *  connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
-      *            + "useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&user=john&password=test1234");
-      */
+       connect();
 
-      // Statements allow to issue SQL queries to the database
-      statement = connect.createStatement();
-      // Result set get the result of the SQL query
-      resultSet = statement
-          .executeQuery("select * from student");
+       insertStudent(5, "Frank", "123 Success Road", "Junior");
+       deleteStudentByName("Frank");
+       updateAddressById(0, "123 New Address");
 
-      writeResultSet(resultSet);
+       // ResultSet r = selectAllStudents();
+       ResultSet r = selectStudentByName("John Smith");
+       printResultSet(r);
 
-      // PreparedStatements can use variables and are more efficient
-
-
-/*  test 2 */
-      preparedStatement = connect
-          .prepareStatement("insert into  student values (?, ?, ?, ?)");
-      preparedStatement.setInt(1, 0); 
-      preparedStatement.setString(2, "Thomas Jefferson");
-      preparedStatement.setString(3, "134 Freedom ln, Rochest Hills, MI 49083");
-      preparedStatement.setString(4, "Senior");
-
-
-      preparedStatement.executeUpdate();
-      
-      resultSet = statement
-          .executeQuery("select * from student");
-
-      writeResultSet(resultSet);
-      
-    } catch (Exception e) {
-         System.out.println(e);
-    } finally {
-      close();
+       close();
+    }catch(SQLException e){
+        System.out.println("Error:" + e);
     }
+     
+ }
 
-  }
-
- /*
-  private void writeMetaData(ResultSet resultSet) throws SQLException {
-    //   Now get some metadata from the database
-    // Result set get the result of the SQL query
-    
-    System.out.println("The columns in the table are: ");
-    
-    System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
-    for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
-      System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i));
-    }
-  }
- */
-
-  private static void writeResultSet(ResultSet resultSet) throws SQLException {
-    // ResultSet is initially before the first data set
-    System.out.println("print result from a table..");
-    while (resultSet.next()) {
-      // It is possible to get the columns via name
-      // also possible to get the columns via the column number
-      // which starts at 1
-      // e.g. resultSet.getSTring(2);
+ 
+  private static void printResultSet(ResultSet resultSet) throws SQLException {
+   while (resultSet.next()) {
+      int id = resultSet.getInt("id");
       String name = resultSet.getString("name");
       String address = resultSet.getString("address");
       String status = resultSet.getString("status");
+    
+      System.out.println("id: " + id);
       System.out.println("name: " + name);
       System.out.println("address: " + address);
       System.out.println("status: " + status);
       System.out.println("");
-    }
-  }
-
-  // You need to close the resultSet
-  private static void close() {
-    try {
-      if (resultSet != null) {
-        resultSet.close();
-      }
-
-      if (statement != null) {
-        statement.close();
-      }
-
-      if (connect != null) {
-        connect.close();
-      }
-    } catch (Exception e) {
-
     }
   }
 } 
