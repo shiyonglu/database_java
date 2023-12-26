@@ -30,7 +30,7 @@ public class test2  {
       // Setup the connection with the DB
       connect = DriverManager
           .getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
-              + "useSSL=false&user=john&password=pass1234");
+              + "useSSL=false&user=root&password=test1234");
      /*
       *  if timezone issue, try: 
       *  connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
@@ -72,6 +72,7 @@ public class test2  {
 
   }
 
+ /*
   private void writeMetaData(ResultSet resultSet) throws SQLException {
     //   Now get some metadata from the database
     // Result set get the result of the SQL query
@@ -83,6 +84,7 @@ public class test2  {
       System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i));
     }
   }
+ */
 
   private static void writeResultSet(ResultSet resultSet) throws SQLException {
     // ResultSet is initially before the first data set
