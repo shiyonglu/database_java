@@ -4,6 +4,36 @@
     1) Download, install, configure and run MySQL database server locally; 
     2) Learn to use MySQL workbench to run SQL statements over a local MySQL server;
     3) Understand how two methods, writeMetaData and writeResultSet, work to display the result from a SELECT statement. 
+
+
+
+First, prepare the database: 
+
+CREATE DATABASE testdb;
+USE testdb;
+CREATE TABLE student (
+     id INTEGER,
+     name varchar(50),
+     address varchar(50),
+     status varchar(50)
+);
+
+INSERT INTO student VALUES (111, 'John Smith','123 success road, Detroit, MI 49202', 'Senior');
+INSERT INTO student VALUES (222, 'Kathy Brown','567 Moy ln, Lansing, MI', 'Junior');
+INSERT INTO student VALUES (333, 'Newton Franklin','44 Cook road, Medford, MI', 'Sophomore');
+
+SELECT * from student;
+
+Second, compile and run it: 
+
+To compile:
+javac -cp .;mysql-connector-java-8.0.13.jar test2.java
+or “ javac -cp .:mysql-connector-java-8.0.13.jar test2.java ” on Mac.
+
+To run: 
+java -cp .;mysql-connector-java-8.0.13.jar test2
+or “ java -cp .:mysql-connector-java-8.0.13.jar test2 ” on Mac.
+
  *
  */
 
