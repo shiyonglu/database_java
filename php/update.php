@@ -12,68 +12,46 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Initialize variables
-$id = $_GET['id'];
-$name = '';
+// Handle update action
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])) {
+    $idToUpdate = $_GET['id'];
+    
+    // Fetch the current data for the selected ID
+    $selectSql = "SELECT * FROM names WHERE id = ?";
+    $selectStmt = $conn->prepare($selectSql);
+    $selectStmt->bind_param("i", $idToUpdate);
+    $selectStmt->execute();
+    $result = $selectStmt->get_result();
+    $row = $result->fetch_assoc();
+    
+    $nameToUpdate = $row['name'];  // Assuming you want to update the 'name' field
 
-// Fetch existing data for the given ID
-$sql = "SELECT * FROM names WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
+    // Display the form for updating
+    echo "<h2>Update Name</h2>";
+    echo "<form action='updateTable.php' method='post'>";
+    echo "<input type='hidden' name='id' value='$idToUpdate'>";
+    echo "Name: <input type='text' name='new_name' value='$nameToUpdate' required>";
+    echo "<br><input type='submit' value='Update'>";
+    echo "</form>";
 
-if ($stmt->execute()) {
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $name = $row['name'];
-    } else {
-        echo "Record not found.";
-        exit();
+    // Handle the form submission for update
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $newName = $_POST['new_name'];
+
+        $updateSql = "UPDATE names SET name = ? WHERE id = ?";
+        $updateStmt = $conn->prepare($updateSql);
+        $updateStmt->bind_param("si", $newName, $idToUpdate);
+
+        if ($updateStmt->execute()) {
+            echo "Record with ID $idToUpdate updated successfully.";
+        } else {
+            echo "Error updating record: " . $updateStmt->error;
+        }
+
+        $updateStmt->close();
     }
-} else {
-    echo "Error retrieving record: " . $stmt->error;
-    exit();
-}
-
-// Handle form submission for updating data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $newName = $_POST['name'];
-
-    // Update the record in the database
-    $updateSql = "UPDATE names SET name = ? WHERE id = ?";
-    $updateStmt = $conn->prepare($updateSql);
-    $updateStmt->bind_param("si", $newName, $id);
-
-    if ($updateStmt->execute()) {
-        echo "Record updated successfully. Redirecting back to database.php...";
-        header("Refresh: 2; URL=database.php"); // Redirect after 2 seconds
-        exit();
-    } else {
-        echo "Error updating record: " . $updateStmt->error;
-    }
-
-    $updateStmt->close();
 }
 
 // Close the database connection
 $conn->close();
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Record</title>
-</head>
-<body>
-
-<h2>Update Record</h2>
-
-<form action="updateTable.php?id=<?php echo $id; ?>" method="post">
-    <label for="name">New Name:</label>
-    <input type="text" name="name" value="<?php echo $name; ?>" required>
-    <br>
-    <input type="submit" value="Update">
-</form>
-
-</body>
-</html>
