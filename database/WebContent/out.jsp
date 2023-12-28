@@ -4,7 +4,7 @@
 </head>
 <body> 
 <% 
-String name=(String)session.getAttribute("sessname"); <!-- actually this line can be in any jsp file to retrieve the value of sessname -->
+String name=(String)session.getAttribute("sessname"); 
 out.print("Hello User: You have entered the name: "+name); 
 %> 
 </body> 
