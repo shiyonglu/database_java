@@ -1,13 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html> 
 <head>
 <title>Passing the input value to a session variable</title>
 </head>
 <body> 
-<% 
-String uname=request.getParameter("inputname"); <!-- retrieve the value of the inputname parameter from request -->
+
+<%
+String uname=request.getParameter("inputname"); 
 out.print("Welcome "+ uname);
-session.setAttribute("sessname",uname);         <!-- store the value of the inputname parameter into session attribute sessname, which can be retrieved by other jsp pages -->
+session.setAttribute("sessname",uname);         
 %> 
+
 <a href="output.jsp">Check Output Page Here </a>
 </body> 
 </html>
