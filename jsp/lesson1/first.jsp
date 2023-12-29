@@ -11,4 +11,5 @@
     <% String name = "John"; %>
     <p>Welcome, <%= name %>!</p>
 </body>
+
 </html>
