@@ -10,4 +10,5 @@ Please watch the tutorial for each exercise and then put your TWO HANDS on the k
 
 REFERENCES:
 
-1. [JSP tutorials](https://www.youtube.com/watch?v=40KM8IdneLg&list=PLEAQNNR8IlB588DQvb2wbKFQh2DviPApl)
+1. [Install Tomcat](https://www.youtube.com/watch?v=c7qZAL1bHi0)
+2. [JSP tutorials](https://www.youtube.com/watch?v=40KM8IdneLg&list=PLEAQNNR8IlB588DQvb2wbKFQh2DviPApl)
