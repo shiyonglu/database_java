@@ -7,3 +7,7 @@ Please watch the tutorial for each exercise and then put your TWO HANDS on the k
 4. Tutorial 4: <a href="https://rumble.com/vd19cf-database-exercise-4-part-1.html">Exercise 4 Part 1</a>
 5. Tutorial 5: <a href="https://rumble.com/vd19gb-database-exercise-4-part-2.html">Exercise 4 Part 2</a>
 6. Tutorial 6: <a href="https://rumble.com/vd19mz-database-exercise-4-part-3.html">Exercise 4 Part 3</a>
+
+REFERENCES:
+
+1. [JSP tutorials:](https://www.youtube.com/watch?v=40KM8IdneLg&list=PLEAQNNR8IlB588DQvb2wbKFQh2DviPApl)
