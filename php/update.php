@@ -13,43 +13,27 @@ if ($conn->connect_error) {
 }
 
 // Handle update action
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['id'])) {
-    $idToUpdate = $_GET['id'];
-    
-    // Fetch the current data for the selected ID
-    $selectSql = "SELECT * FROM names WHERE id = ?";
-    $selectStmt = $conn->prepare($selectSql);
-    $selectStmt->bind_param("i", $idToUpdate);
-    $selectStmt->execute();
-    $result = $selectStmt->get_result();
-    $row = $result->fetch_assoc();
-    
-    $nameToUpdate = $row['name'];  // Assuming you want to update the 'name' field
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $idToUpdate = $_POST['id'];
+    $nameToUpdate = $_POST['name'];
+    // You can add other fields as needed
 
-    // Display the form for updating
-    echo "<h2>Update Name</h2>";
-    echo "<form action='updateTable.php' method='post'>";
-    echo "<input type='hidden' name='id' value='$idToUpdate'>";
-    echo "Name: <input type='text' name='new_name' value='$nameToUpdate' required>";
-    echo "<br><input type='submit' value='Update'>";
-    echo "</form>";
+    // Update the record in the database
+    $updateSql = "UPDATE names SET name = ? WHERE id = ?";
+    $updateStmt = $conn->prepare($updateSql);
+    $updateStmt->bind_param("si", $nameToUpdate, $idToUpdate);
 
-    // Handle the form submission for update
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $newName = $_POST['new_name'];
-
-        $updateSql = "UPDATE names SET name = ? WHERE id = ?";
-        $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("si", $newName, $idToUpdate);
-
-        if ($updateStmt->execute()) {
-            echo "Record with ID $idToUpdate updated successfully.";
-        } else {
-            echo "Error updating record: " . $updateStmt->error;
-        }
-
-        $updateStmt->close();
+    if ($updateStmt->execute()) {
+        echo "Record with ID $idToUpdate updated successfully.";
+    } else {
+        echo "Error updating record: " . $updateStmt->error;
     }
+
+    $updateStmt->close();
+
+    // Redirect back to database.php
+    header("Location: database.php");
+    exit();
 }
 
 // Close the database connection
