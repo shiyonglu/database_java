@@ -12,21 +12,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle delete action
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
-    $idToDelete = $_GET['id'];
-    $deleteSql = "DELETE FROM names WHERE id = ?";
-    $deleteStmt = $conn->prepare($deleteSql);
-    $deleteStmt->bind_param("i", $idToDelete);
-
-    if ($deleteStmt->execute()) {
-        echo "Record with ID $idToDelete deleted successfully.";
-    } else {
-        echo "Error deleting record: " . $deleteStmt->error;
-    }
-
-    $deleteStmt->close();
-}
 
 // Fetch records from the database
 $sql = "SELECT * FROM names";
@@ -62,14 +47,14 @@ $result = $conn->query($sql);
         <td><?php echo $name; ?></td>
         <td><?php echo $dateAdded; ?></td>
         <td>
-            <form action="delete.php" method="get">
+            <form action="delete.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="hidden" name="action" value="delete">
                 <button type="submit">Delete</button>
             </form>
         </td>
         <td>
-            <form action="update.php" method="get">
+            <form action="updateForm.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="hidden" name="action" value="update">
                 <button type="submit">Update</button>
